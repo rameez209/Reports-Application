@@ -56,7 +56,7 @@
                             </div>
 
                             <!-- Register -->
-                            <div class="form-check d-flex justify-between mb-4">
+                            <div class="form-check d-flex justify-center mb-4">
                                 <p>
                                     Don't have an account?
                                     <a href="/register" class="text-laravel">Register</a>

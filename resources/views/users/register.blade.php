@@ -22,7 +22,7 @@
           background: hsla(0, 0%, 100%, 0.8);
           backdrop-filter: blur(30px);
           ">
-            <div class="card-body py-5 px-md-5">
+            <div class="card-body py-5 px-md-4">
 
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
@@ -52,35 +52,29 @@
 
                             <!-- Password input -->
                             <!-- 2 column grid layout with password inputs for password and confirm password -->
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
                                     <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4" class="form-control" name="password"/>
+                                        <input type="password" id="form3Example4" class="form-control"
+                                            name="password" />
                                         <label class="form-label" for="form3Example4">Password</label>
+                                        @error('password')
+                                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    @error('password')
-                                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                                    @enderror
-                                </div>
                                 {{-- Confirm Password --}}
-                                <div class="col-md-6 mb-4">
                                     <div class="form-outline">
                                         <input type="password" id="form3Example5" class="form-control"
                                             name="password_confirmation" />
                                         <label class="form-label" for="password_confirmation">Confirm password</label>
+                                        @error('password_confirmation')
+                                            <p class="text-red-500 text-xs">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    @error('password_confirmation')
-                                        <p class="text-red-500 text-xs">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div>
 
                             <!-- Checkbox -->
-                            <div class="form-check d-flex justify-content-center mb-4">
+                            <div class="form-check d-flex justify-content-center mb-4 mt-3">
                                 {{-- <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked /> --}}
                                 <p>
-                                    Already have an account?
-                                    <a href="/login" class="text-laravel">Login</a>
+                                    Already have an account? <a href="/login" class="text-laravel">Login</a>
                                 </p>
                             </div>
 

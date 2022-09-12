@@ -18,9 +18,9 @@
             @php
                 $string = strip_tags($report->description);
 
-                if(strlen($string) > 310)
+                if(strlen($string) > 250)
                     :
-                    $stringCut = substr($string, 0, 310);
+                    $stringCut = substr($string, 0, 250);
                     $endPoint = strrpos($stringCut, ' ');
                     $string = $endPoint?substr($stringCut, 0, $endPoint):substr($stringCut, 0);
                     $string.=' <b>...</b>';
