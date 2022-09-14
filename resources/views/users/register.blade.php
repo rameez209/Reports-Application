@@ -40,6 +40,40 @@
                                 <label class="form-label" for="form3Example1">Name</label>
                             </div>
 
+                            <div class="form-outline mb-4">
+                                {{-- <input type="number" class="form-control" name="role" value="{{ old('role') }}" /> --}}
+                                <select name="role" class="border border-gray-200 rounded p-2 w-full">
+                                    <option selected disabled >Role</option>
+                                    <option value="2">Admin</option>
+                                    <option value="1">Editor</option>
+                                </select>
+                                @error('role')
+                                    <p class="text-red-500 text-xs ">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            {{-- DROP DOWN LIST FOR DEPARTMENTS --}}
+                            {{-- <div class="mb-6">
+                                <label for="role" class="inline-block text-lg mb-2">User Role <span
+                                        class="text-red-500">*</span></label>
+                                
+
+                                
+
+                                @error('Department')
+                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                            </div> --}}
+
+
+
+
+
+
+
+
+
+
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" />
@@ -52,23 +86,22 @@
 
                             <!-- Password input -->
                             <!-- 2 column grid layout with password inputs for password and confirm password -->
-                                    <div class="form-outline mb-4">
-                                        <input type="password" id="form3Example4" class="form-control"
-                                            name="password" />
-                                        <label class="form-label" for="form3Example4">Password</label>
-                                        @error('password')
-                                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                {{-- Confirm Password --}}
-                                    <div class="form-outline">
-                                        <input type="password" id="form3Example5" class="form-control"
-                                            name="password_confirmation" />
-                                        <label class="form-label" for="password_confirmation">Confirm password</label>
-                                        @error('password_confirmation')
-                                            <p class="text-red-500 text-xs">{{ $message }}</p>
-                                        @enderror
-                                    </div>
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form3Example4" class="form-control" name="password" />
+                                <label class="form-label" for="form3Example4">Password</label>
+                                @error('password')
+                                    <p class="text-red-500 text-xs">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            {{-- Confirm Password --}}
+                            <div class="form-outline">
+                                <input type="password" id="form3Example5" class="form-control"
+                                    name="password_confirmation" />
+                                <label class="form-label" for="password_confirmation">Confirm password</label>
+                                @error('password_confirmation')
+                                    <p class="text-red-500 text-xs">{{ $message }}</p>
+                                @enderror
+                            </div>
 
                             <!-- Checkbox -->
                             <div class="form-check d-flex justify-content-center mb-4 mt-3">
