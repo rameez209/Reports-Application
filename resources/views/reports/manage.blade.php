@@ -11,12 +11,12 @@
         $totalReport = DB::table('reports')->count();
         $totalDepartments = DB::table('departments')->count();
         $departmentList = DB::table('departments')
-            ->select('departments')
+            ->select('departments', 'id')
             ->orderBy('departments', 'asc')
             ->distinct()
             ->get();
-        
     @endphp
+
     <!--Container-->
     <div class="container w-full mx-auto pt-20">
 
@@ -34,8 +34,11 @@
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-gray-500">Total Reports</h5>
-                                <h3 class="font-bold text-3xl">{{ $totalReport }} <span class="text-green-500"><i
-                                            class="fas fa-caret-up"></i></span></h3>
+                                <h3 class="font-bold text-3xl">{{ $totalReport }}
+                                    <span class="text-green-500">
+                                        <i class="fas fa-caret-up"></i>
+                                    </span>
+                                </h3>
                             </div>
                         </div>
                     </div>
@@ -133,31 +136,98 @@
 
             <div class="flex flex-row flex-wrap flex-grow mt-2">
 
-                <div class="w-full md:w-1/2 p-3">
+                <div class="w-full md:w-1/4 p-3">
                     <!--Graph Card-->
                     <div class="bg-white border rounded shadow">
                         <div class="border-b p-3 flex justify-between items-center">
                             <h5 class="font-bold uppercase text-gray-600">Departments</h5>
-                            <button class="btn btn-sm btn-floating btn-info"><i class="fa fa-plus-circle"></i></button>
+                            <button class="btn btn-success"><a href="{{ url('/departments/create') }}"><i
+                                        class="fa fa-plus"></i> Add</a></button>
                         </div>
-                        <div class="p-5">
-                            <ul class="list-unstyled card-columns" style="column-count: 3;">
+                        <div class="p-3">
+
+                            {{-- TO ADD THE DEPARTMENT INSIDE THE MANAGE DASHBOARD --}}
+                            {{-- @include('/departments.add-department') --}}
+
+
+                            <ul class="list-unstyled card-columns" style="column-count: 1;">
+                                {{-- @unless($departmentList->isEmpty()) --}}
                                 @unless($departmentList->isEmpty())
                                     @foreach ($departmentList as $dprt)
-                                        <li class="list-group-item border-0">{{ $dprt->departments }}</li>
+                                        <li class="list-group-item border-0">
+                                            <div class="flex justify-between">
+                                                <div>{{ $dprt->departments }}</div>
+                                                {{-- <div>{{ $dprt->id }}</div> --}}
+                                                <div class="flex justify-between">
+                                                    {{-- <div>
+                                                        <a href="#" class="text-blue-400 px-6 py-2 rounded-xl"><i
+                                                                class="fa-solid fa-pen-to-square"></i></a>
+                                                    </div> --}}
+                                                    <div class="text-red-500">
+                                                        <form class="delete-btn-form" action="/departments/{{ $dprt->id }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="text-red-500"><i class="fa-solid fa-trash"></i></button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
                                     @endforeach
                                 @endunless
                             </ul>
                         </div>
+
+
+
+
+                        {{-- --------------------- --}}
+                        {{-- DEPARTMENTS CRUD Form --}}
+                        {{-- --------------------- --}}
+                        {{-- <form method="POST" action="/reports" enctype="multipart/form-data"> --}}
+
+                        {{-- <div class="p-3">
+                        <form action="{{ route('departments.store') }}" method="POST" autocomplete="off" >
+                            @csrf
+                            <div class="input-group">
+                                <input type="text" name="content" class="form-control"
+                                    placeholder="Add New Department">
+                                <button type="submit" class="btn btn-dark btn-sm px-4"><i
+                                        class="fas fa-plus"></i></button>
+                            </div>
+                        </form>
+                        @if (count($departments) > 0)
+                            <ul class="list-group list-group-flush mt-3">
+                                @foreach ($departments as $dpt)
+                                    <li class="list-group-item">
+                                        <div></div> $dpt->departments
+                                        <form action="{{ route('distroy', $dpt->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-link btn-sm float-end"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            @else
+                            <tr>
+                                <td>No Data Found</td>
+                            </tr>
+                        @endif
+                    </div> --}}
+
                     </div>
                     <!--/Graph Card-->
                 </div>
 
-                <div class="w-full md:w-1/2 p-3">
+                <div class="w-full md:w-3/4 p-3">
                     <!--Graph Card-->
                     <div class="bg-white border rounded shadow">
-                        <div class="border-b p-3">
+                        <div class="border-b p-3 flex justify-between items-center">
                             <h5 class="font-bold uppercase text-gray-600">Users</h5>
+                            <button class="btn btn-success"><i class="fa fa-user-plus"></i> Add</button>
+                            {{-- <button class="btn btn-sm btn-floating btn-success"><i class="fa fa-user-plus"></i></button> --}}
                         </div>
                         <div class="p-3">
                             @php
@@ -300,16 +370,19 @@
                                         @foreach ($reports as $report)
                                             <tr>
                                                 <th scope="row">{{ $report->id }}</th>
-                                                <td><a href="/reports/{{ $report->id }}"> {{ $report->report_name }}</a>
+                                                <td><a href="/reports/{{ $report->id }}">
+                                                        {{ $report->report_name }}</a>
                                                 </td>
                                                 <td><a href="/reports/{{ $report->id }}/edit"
-                                                        class="text-blue-400 px-6 py-2 rounded-xl"><i class="fa-solid fa-pen-to-square"></i>Edit</a></td>
+                                                        class="text-blue-400 px-6 py-2 rounded-xl"><i
+                                                            class="fa-solid fa-pen-to-square"></i>Edit</a></td>
                                                 <td>
                                                     <form class="delete-btn-form" method="POST"
                                                         action="/reports/{{ $report->id }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+                                                        <button class="text-red-500"><i class="fa-solid fa-trash"></i>
+                                                            Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>

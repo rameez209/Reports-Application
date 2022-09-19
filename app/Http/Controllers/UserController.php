@@ -48,6 +48,7 @@ class UserController extends Controller
     public function login() {
         return view('users.login');
     }
+    
     public function loginUser(Request $request)
     {   
         $input = $request->all();

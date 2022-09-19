@@ -18,7 +18,7 @@
     <!-- Custom styles for this template-->
     {{-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> --}}
     <link href="{{ asset('/public/css/sb-admin-2.min.css') }}" rel="stylesheet">
-    
+
 
     {{-- ALPINJS --}}
     <script src="//unpkg.com/alpinejs" defer></script>
@@ -28,11 +28,22 @@
 
     {{-- JQUERY CDN --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-   {{-- CSS --}}
+
+    {{-- CSS --}}
     <style>
         ::-webkit-scrollbar {
             display: none;
+        }
+
+        /* TO STOP THE WHITE SPACE SCROLLING */
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+
+        body {
+            overflow: auto;
+            height: 100%;
         }
 
         .department-container {
@@ -109,10 +120,10 @@
         a:hover {
             color: inherit;
         }
+
         .hide-div {
             display: none;
         }
-        
     </style>
     <title>SJGH | Report Catalog</title>
 </head>
@@ -164,29 +175,28 @@
                 <li>
                     <a href="/login" class="hover:text-laravel title-shadow">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        Login 
+                        Login
                     </a>
                 </li>
             @endauth
         </ul>
-
     </nav>
     <div class="sidenav pb-10 border-r-2 border-navbarcolor">
         <li class="list-none mb-1 fs-4 text-[#808080] font-semibold uppercase ml-2 mt-4">Dashboard</li>
         <div class="flex flex-col align-left">
             <a class="uppercase leading-2 " target="_blank" href="/">
-                <li class="btn mt-0 list-none flex justify-between text-white">
-                    claims <i class="fa fa-external-link"></i>
+                <li class="btn mt-0 list-none flex justify-between text-white items-center">
+                    claims <i class="fa fa-external-link bg-navbarcolor rounded-2xl p-2"></i>
                 </li>
             </a>
             <a class="uppercase leading-3 " target="_blank" href="/">
-                <li class="btn mt-2 list-none flex justify-between text-white">
-                    Revenue Usage <i class="fa fa-external-link"></i>
+                <li class="btn mt-2 list-none flex justify-between text-white items-center">
+                    Revenue Usage <i class="fa fa-external-link bg-navbarcolor rounded-2xl p-2"></i>
                 </li>
             </a>
             <a class="uppercase leading-3 " target="_blank" href="/">
-                <li class="btn mt-2 list-none flex justify-between text-white">
-                    Balance Scorecard <i class="fa fa-external-link"></i>
+                <li class="btn mt-2 list-none flex justify-between text-white items-center">
+                    Balance Scorecard <i class="fa fa-external-link bg-navbarcolor rounded-2xl p-2"></i>
                 </li>
             </a>
 
@@ -202,8 +212,9 @@
         @endphp
         @foreach ($departments->unique('departments') as $rpt)
             <a class="uppercase leading-3 " href="/?department={{ $rpt->departments }}">
-                <li class="btn mt-2 list-none text-white flex justify-between">
-                    <span>{{ $rpt->departments }}</span> <i class="fas fa-folder-open "></i>
+                <li class="btn mt-2 list-none text-white flex justify-between items-center">
+                    <span>{{ $rpt->departments }}</span> <i
+                        class="fas fa-folder-open bg-navbarcolor rounded-2xl p-2"></i>
                 </li>
             </a>
             {{-- <hr> --}}
@@ -231,7 +242,7 @@
             });
 
             // $(".report-list").hide();
-            $(".show-details").click(function(){
+            $(".show-details").click(function() {
                 $(".report-list-details").toggle();
                 $(".report-list").toggle();
             });
@@ -240,232 +251,12 @@
                 return confirm("Are you sure you want to delete this report?");
             });
 
-           
+
         });
     </script>
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-        var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-        gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-        gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-        // Line chart
-        new Chart(document.getElementById("chartjs-dashboard-line"), {
-            type: "line",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Sales ($)",
-                    fill: true,
-                    backgroundColor: gradient,
-                    borderColor: window.theme.primary,
-                    data: [
-                        2115,
-                        1562,
-                        1584,
-                        1892,
-                        1587,
-                        1923,
-                        2566,
-                        2448,
-                        2805,
-                        3438,
-                        2917,
-                        3327
-                    ]
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    intersect: false
-                },
-                hover: {
-                    intersect: true
-                },
-                plugins: {
-                    filler: {
-                        propagate: false
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        reverse: true,
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            stepSize: 1000
-                        },
-                        display: true,
-                        borderDash: [3, 3],
-                        gridLines: {
-                            color: "rgba(0,0,0,0.0)"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Pie chart
-        new Chart(document.getElementById("chartjs-dashboard-pie"), {
-            type: "pie",
-            data: {
-                labels: ["Chrome", "Firefox", "IE"],
-                datasets: [{
-                    data: [4306, 3801, 1689],
-                    backgroundColor: [
-                        window.theme.primary,
-                        window.theme.warning,
-                        window.theme.danger
-                    ],
-                    borderWidth: 5
-                }]
-            },
-            options: {
-                responsive: !window.MSInputMethodContext,
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                cutoutPercentage: 75
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Bar chart
-        new Chart(document.getElementById("chartjs-dashboard-bar"), {
-            type: "bar",
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "This year",
-                    backgroundColor: window.theme.primary,
-                    borderColor: window.theme.primary,
-                    hoverBackgroundColor: window.theme.primary,
-                    hoverBorderColor: window.theme.primary,
-                    data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-                    barPercentage: .75,
-                    categoryPercentage: .5
-                }]
-            },
-            options: {
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        stacked: false,
-                        ticks: {
-                            stepSize: 20
-                        }
-                    }],
-                    xAxes: [{
-                        stacked: false,
-                        gridLines: {
-                            color: "transparent"
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var markers = [{
-                coords: [31.230391, 121.473701],
-                name: "Shanghai"
-            },
-            {
-                coords: [28.704060, 77.102493],
-                name: "Delhi"
-            },
-            {
-                coords: [6.524379, 3.379206],
-                name: "Lagos"
-            },
-            {
-                coords: [35.689487, 139.691711],
-                name: "Tokyo"
-            },
-            {
-                coords: [23.129110, 113.264381],
-                name: "Guangzhou"
-            },
-            {
-                coords: [40.7127837, -74.0059413],
-                name: "New York"
-            },
-            {
-                coords: [34.052235, -118.243683],
-                name: "Los Angeles"
-            },
-            {
-                coords: [41.878113, -87.629799],
-                name: "Chicago"
-            },
-            {
-                coords: [51.507351, -0.127758],
-                name: "London"
-            },
-            {
-                coords: [40.416775, -3.703790],
-                name: "Madrid "
-            }
-        ];
-        var map = new jsVectorMap({
-            map: "world",
-            selector: "#world_map",
-            zoomButtons: true,
-            markers: markers,
-            markerStyle: {
-                initial: {
-                    r: 9,
-                    strokeWidth: 7,
-                    stokeOpacity: .4,
-                    fill: window.theme.primary
-                },
-                hover: {
-                    fill: window.theme.primary,
-                    stroke: window.theme.primary
-                }
-            },
-            zoomOnScroll: false
-        });
-        window.addEventListener("resize", () => {
-            map.updateSize();
-        });
-    });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-        var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-        document.getElementById("datetimepicker-dashboard").flatpickr({
-            inline: true,
-            prevArrow: "<span title=\"Previous month\">&laquo;</span>",
-            nextArrow: "<span title=\"Next month\">&raquo;</span>",
-            defaultDate: defaultDate
-        });
-    });
-</script>
+
 </body>
 
 </html>

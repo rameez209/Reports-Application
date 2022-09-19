@@ -30,6 +30,7 @@
                         <p class="mb-5">Create an account to add report</p>
                         <form method="POST" action="/users">
                             @csrf
+                            @method('PUT')
 
                             <!-- Name input -->
                             <div class="form-outline mb-4">
@@ -52,28 +53,7 @@
                                 @enderror
                             </div>
 
-                            {{-- DROP DOWN LIST FOR DEPARTMENTS --}}
-                            {{-- <div class="mb-6">
-                                <label for="role" class="inline-block text-lg mb-2">User Role <span
-                                        class="text-red-500">*</span></label>
-                                
-
-                                
-
-                                @error('Department')
-                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                @enderror
-                            </div> --}}
-
-
-
-
-
-
-
-
-
-
+                           
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}" />
