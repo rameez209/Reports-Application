@@ -1,40 +1,4 @@
-{{-- @extends('components.layout')
-@section('content')
-    
-<div class="p-3">
-    <form action="{{ url('departments') }}" method="POST" autocomplete="off" >
-        @csrf
-        <div class="input-group">
-            <input type="text" name="content" class="form-control"
-                placeholder="Add New Department">
-            <button type="submit" class="btn btn-dark btn-sm px-4"><i
-                    class="fas fa-plus"></i></button>
-        </div>
-    </form>
-    @if (count($departments) > 0)
-        <ul class="list-group list-group-flush mt-3">
-            @foreach ($departments as $dpt)
-                <li class="list-group-item">
-                   <div>$dpt->departments</div> 
-                    <form action="{{ route('distroy', $dpt->id) }}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="btn btn-link btn-sm float-end"><i
-                                class="fas fa-trash"></i></button>
-                    </form>
-                </li>
-            @endforeach
-        </ul>
-        @else
-        <tr>
-            <td>No Data Found</td>
-        </tr>
-    @endif
-</div>
-
-@endsection --}}
-
-<x-layout>
+{{-- <x-layout>
 
     <!-- Section: Design Block -->
     <section class="text-center"
@@ -59,38 +23,66 @@
 
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
-                        <h1 class="fw-bold uppercase text-2xl">Add Department</h1>
-                        
-                            <form method="POST" action="/departments" enctype="multipart/form-data">
-                                @csrf
-                            <div class="form-outline mb-4">
-                                <input type="text" class="form-control" name="departments"
-                                    value="{{ old('departments') }}" />
-                                @error('departments')
-                                    <p class="text-red-500 text-xs ">{{ $message }}</p>
-                                @enderror
-                                <label class="form-label" for="departments">Department</label>
+                        <h1 class="fw-bold uppercase text-2xl">Add Department</h1> --}}
+
+<form method="POST" action="/departments" enctype="multipart/form-data">
+    @csrf
+    <div class="flex justify-between">
+        <div class="form-outline mb-4 w-3/4">
+            {{-- <input type="text" class="form-control border border-gray-100" name="departments" value="{{ old('departments') }}" /> --}}
+            <input type="text" class="form-control border border-gray-100" name="departments" />
+            @error('departments')
+                <p class="text-red-500 text-xs ">{{ $message }}</p>
+            @enderror
+            <label class="form-label" for="departments">Department</label>
+        </div>
+        <div class="w-1/4 pl-1">
+            <a type="submit" class="">
+                <button type="submit" class="btn btn-success bg-success mb-4">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </a>
+        </div>
+    </div>
+
+
+</form>
+<div class="flex mb-4 gap-x-4 justify-center" >
+
+    <div class="w-full p-3">
+        <!--Graph Card-->
+
+        <ul class="list-unstyled card-columns">
+            @unless($departmentList->isEmpty())
+                @foreach ($departmentList as $dprt)
+                    <li class="list-group-item border-0">
+                        <div class="flex justify-between">
+                            <div>{{ $dprt->departments }}</div>
+                            <div class="flex justify-between">
+                                <div class="text-red-500">
+                                    <form class="delete-btn-form" action="/departments/{{ $dprt->id }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="text-red-500">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
+                        </div>
+                    </li>
+                @endforeach
+            @endunless
+        </ul>
+    </div>
+</div>
 
-                            <div class="flex mb-4 gap-x-4 justify-center">
-                                <a type="submit" class=" pr-4">
-                                    <button class="btn btn-laravel text-white bg-laravel">
-                                        Add Department
-                                    </button></a>
-                                <a href="/" class="btn btn-danger bg-danger text-white "><i
-                                        class="fa-solid fa-arrow-left"></i>
-                                    Cancel
-                                </a>
-                            </div>
 
-                        </form>
 
-                        
-                        
-                    </div>
+{{-- </div>
                 </div>
             </div>
         </div>
     </section>
 
-</x-layout>
+</x-layout> --}}

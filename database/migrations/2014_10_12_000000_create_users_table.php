@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('jobtitle')->nullable();
             // 0 = User; 1 = Editor; 2 = Admin
             $table->tinyInteger("role")->default(0);
             $table->string('email')->unique();
@@ -33,6 +34,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('reports');
         Schema::dropIfExists('users');
+        // Schema::table('users', function($table) {
+        //     $table->dropColumn('jobtitle');
+        // });
     }
 };

@@ -1,4 +1,4 @@
-<x-layout>
+{{-- <x-layout>
 
     <!-- Section: Design Block -->
     <section class="text-center"
@@ -16,7 +16,7 @@
         <!-- Background image -->
 
         {{-- <div class="card mx-4 mx-md-5 shadow-5-strong" --}}
-        <div class="card sm:mx-5 lg:mx-32 xl:mx-72 2xl:mx-96 shadow-5-strong flex"
+{{-- <div class="card sm:mx-5 lg:mx-32 xl:mx-72 2xl:mx-96 shadow-5-strong flex" 
             style="
           margin-top: -100px;
           background: hsla(0, 0%, 100%, 0.8);
@@ -27,85 +27,86 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
                         <h1 class="fw-bold uppercase text-2xl">Register</h1>
-                        <p class="mb-5">Create an account to add report</p>
-                        <form method="POST" action="/users">
-                            @csrf
-                            @method('PUT')
+                        <p class="mb-5">Create an account to add report</p> --}}
+<form method="POST" action="/users" autocomplete="off">
+    @csrf
 
-                            <!-- Name input -->
-                            <div class="form-outline mb-4">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" />
-                                @error('name')
-                                    <p class="text-red-500 text-xs ">{{ $message }}</p>
-                                @enderror
-                                <label class="form-label" for="form3Example1">Name</label>
-                            </div>
+    <!-- Name input -->
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control" name="name" value="{{ old('name') }}" />
+        @error('name')
+            <p class="text-red-500 text-xs ">{{ $message }}</p>
+        @enderror
+        <label class="form-label" for="name"><i class="fa fa-user"></i> Name</label>
+    </div>
 
-                            <div class="form-outline mb-4">
-                                {{-- <input type="number" class="form-control" name="role" value="{{ old('role') }}" /> --}}
-                                <select name="role" class="border border-gray-200 rounded p-2 w-full">
-                                    <option selected disabled >Role</option>
-                                    <option value="2">Admin</option>
-                                    <option value="1">Editor</option>
-                                </select>
-                                @error('role')
-                                    <p class="text-red-500 text-xs ">{{ $message }}</p>
-                                @enderror
-                            </div>
+    <!-- Job Title input -->
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control" name="jobtitle" value="{{ old('jobtitle') }}" />
+        @error('jobtitle')
+            <p class="text-red-500 text-xs ">{{ $message }}</p>
+        @enderror
+        <label class="form-label" for="jobtitle">Job Title</label>
+    </div>
 
-                           
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" />
-                                <label for="email" class="form-label">Email</label>
+    <div class="form-outline mb-4">
+        {{-- <input type="number" class="form-control" name="role" value="{{ old('role') }}" /> --}}
+        <select name="role" class="border border-gray-200 rounded p-2 w-full">
+            <option class="text-muted" selected disabled>Role</option>
+            <option value="2">Admin</option>
+            <option value="1">Editor</option>
+        </select>
+        @error('role')
+            <p class="text-red-500 text-xs ">{{ $message }}</p>
+        @enderror
+    </div>
 
-                                @error('email')
-                                    <p class="text-red-500 text-xs">{{ $message }}</p>
-                                @enderror
-                            </div>
 
-                            <!-- Password input -->
-                            <!-- 2 column grid layout with password inputs for password and confirm password -->
-                            <div class="form-outline mb-4">
-                                <input type="password" id="form3Example4" class="form-control" name="password" />
-                                <label class="form-label" for="form3Example4">Password</label>
-                                @error('password')
-                                    <p class="text-red-500 text-xs">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            {{-- Confirm Password --}}
-                            <div class="form-outline">
-                                <input type="password" id="form3Example5" class="form-control"
-                                    name="password_confirmation" />
-                                <label class="form-label" for="password_confirmation">Confirm password</label>
-                                @error('password_confirmation')
-                                    <p class="text-red-500 text-xs">{{ $message }}</p>
-                                @enderror
-                            </div>
+    <!-- Email input -->
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control border border-grey-light" name="email"
+            value="{{ old('email') }}" />
+        @error('email')
+            <p class="text-red-500 text-xs ">{{ $message }}</p>
+        @enderror
+        <label class="form-label" for="form3Example1"><i class="fa fa-envelope"></i> Email</label>
+    </div>
 
-                            <!-- Checkbox -->
-                            <div class="form-check d-flex justify-content-center mb-4 mt-3">
-                                {{-- <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked /> --}}
-                                <p>
-                                    Already have an account? <a href="/login" class="text-laravel">Login</a>
-                                </p>
-                            </div>
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control border border-grey-light" name="password"
+            value="{{ old('password') }}" />
+        @error('password')
+            <p class="text-red-500 text-xs ">{{ $message }}</p>
+        @enderror
+        <label class="form-label" for="password"><i class="fa fa-lock"></i> password</label>
+    </div>
 
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-laravel text-white bg-laravel btn-block mb-4">
-                                Sign up
-                            </button>
+    <div class="form-outline mb-4">
+        <input type="text" class="form-control border border-grey-light" name="password_confirmation"
+            value="{{ old('password_confirmation') }}" />
+        @error('password_confirmation')
+            <p class="text-red-500 text-xs ">{{ $message }}</p>
+        @enderror
+        <label class="form-label" for="password2"><i class="fa fa-lock"></i> Conform Password</label>
+    </div>
 
-                            <!-- Register buttons -->
-                        </form>
-                    </div>
+
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-success bg-success btn-block mb-4">
+        <i class="fa fa-user-plus"></i> Add User
+    </button>
+
+    <!-- Register buttons -->
+</form>
+{{-- </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Section: Design Block -->
+    </section> --}}
+<!-- Section: Design Block -->
 
-    {{-- <x-card class="p-10 max-w-lg mx-auto mt-24">
+{{-- <x-card class="p-10 max-w-lg mx-auto mt-24">
         <header class="text-center">
             <h2 class="text-2xl font-bold uppercase mb-1">
                 Register
@@ -173,4 +174,4 @@
             </div>
         </form>
     </x-card> --}}
-</x-layout>
+{{-- </x-layout> --}}

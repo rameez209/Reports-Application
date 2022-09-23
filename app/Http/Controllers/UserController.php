@@ -17,6 +17,7 @@ class UserController extends Controller
     public function store(Request $request) {
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
+            'jobtitle' => 'required',
             'role' => 'required',
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed|min:6',
@@ -29,10 +30,43 @@ class UserController extends Controller
         $user = User::create($formFields);
 
         // Login
-        auth()->login($user);
+        // auth()->login($user);
 
-        return redirect('/')->with('success', 'User created and logged in');
+        return redirect()->back()->with('success', 'User created and logged in');
     }
+
+    // Show Edit Form
+    public function edit(User $user)
+    {
+        return view('users.edit', ['user' => $user]);
+    }
+
+    // Update report data
+    public function update(Request $request, User $user)
+    {
+        // // Make sure logged in user is owner
+        // if($report->user_id != auth()->id()) {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        $formFields = $request->validate([
+            'name' => ['required', 'min:3'],
+            'jobtitle' => 'required',
+            'role' => 'required',
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+       
+
+        $user->update($formFields);
+
+
+        return redirect("/")->with('success',  ' Report Updated Successfully!');
+        // return back()->with('success', 'Report updated successfully!');
+    }
+    
+    
 
     // Logout User
     public function logout(Request $request) {
@@ -92,9 +126,28 @@ class UserController extends Controller
         if(auth()->attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('success', 'Your are now logged in!');
+            return redirect('/')->with('success', 'Welcome Back!');
         }
 
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
+
+    // Delete report
+    public function destroy(User $user)
+    {
+        // // Make sure logged in user is owner
+        // if($report->user_id != auth()->id()) {
+        //     abort(403, 'Unauthorized Action');
+        // }
+
+        if($user->user_id == auth()->id()) {
+            abort(403, 'You are the Super Admin');
+        }
+
+        
+        $user->delete();
+        return redirect()->back()->with('success','User deleted successfully');
+    }
+
+    
 }

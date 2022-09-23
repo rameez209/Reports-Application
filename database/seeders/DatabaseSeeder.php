@@ -17,14 +17,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(class:AdminUserSeeder::class);
+        
         $user = User::factory()->create([
-                'name' => 'rameez mohammad',
-                'email' => 'rmuhammad@sjgh.org'
+                'name' => 'Admin',
+                'jobtitle' => 'Application Developer',
+                'role' => '2',
+                'email' => 'rmuhammad@sjgh.org',
+                'password' => bcrypt('R@meez92')
             ]);
     
-            Report::factory(6)->create([
-                'user_id' => $user->id
-            ]);
+            // Report::factory(6)->create([
+            //     'user_id' => $user->id
+            // ]);
 
         // Report::create([
         //         'report_name' => 'zzCPM- Active Encounters With Cancelled Appointments', 

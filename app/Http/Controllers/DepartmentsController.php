@@ -55,7 +55,7 @@ class DepartmentsController extends Controller
         $department = Departments::find($id);
         $input = $request->all();
         $department->update($input);
-        return redirect('department')->with('success', 'department Updated!');  
+        return redirect('departments')->with('success', 'department Updated!');  
     }
 
     // Delete report
@@ -72,4 +72,12 @@ class DepartmentsController extends Controller
         return redirect()->back()->with('success','Department deleted successfully');
         // return view('reports.manage', ['departments' => $departments]);
     }
+    // public function deleteDepartment(Request $request, $id)
+    // {
+
+    //     $departments = Departments::findOrFail($id);
+    //     $departments->delete();
+    //     return redirect('/');
+    //     // return view('reports.manage', ['departments' => $departments]);
+    // }
 }

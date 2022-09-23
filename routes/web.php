@@ -60,17 +60,15 @@ Route::get('/reports/{report}', [ReportController::class, 'show']);
 //    ==================================================================
 //  ============       Department Controller      =========================
 //    ==================================================================
+// Route::resource('departments', DepartmentsController::class);
 Route::get('/departments/create', [DepartmentsController::class, 'create'])->middleware('auth');
+// Delete Data
+Route::delete('/departments/{departments}', [DepartmentsController::class, 'destroy']);
 // Store Data
 Route::post('/departments', [DepartmentsController::class, 'store'])->middleware('auth');
-// Delete Data
-Route::delete('/departments/{departments}', [DepartmentsController::class, 'destroy'])->middleware('auth');
-
-// Hmmmmmm Maybe ....
-// Route::delete('/departments/{departments}','DepartmentsController@destroy')->name('departments.destroy');
-// Route::delete('/departments/{departments}','DepartmentsController@destroy')->name('departments.destroy');
 
 
+// Route::post('/departments/delete/{id}', 'DepartmentsController@deleteDepartment')->name('deletedepartment');
 
 
 // Create New User
@@ -85,17 +83,24 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 // Log In User
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
+// Delete report
+Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
+// Show Edit Form
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware('auth');
+
+// Update user
+// Route::PUT('/users/{user}', [UserController::class, 'update'])->middleware('auth');
+
 // // Route Admin
 
 // THIS MIDDLEWARE ROUTE WILL GIVE ACCESS TO ADMIN AND EDITOR
 Route::middleware(['auth', 'user-role:admin'])->group(function () {
     Route::get("/reports/manage", [ReportController::class, 'manage'])->name("manage");
     Route::get('/register', [UserController::class, 'create']);
-    
 });
 
 // ADMIN DASHBOARD ---- ONLY ADMIN ACCESS
 Route::middleware(['auth', 'user-role:admin'])->group(function () {
     Route::get("/reports/dashboard", [ReportController::class, 'dashboard'])->name("dashboard");
 });
-
