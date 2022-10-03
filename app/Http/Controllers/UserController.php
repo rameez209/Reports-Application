@@ -32,7 +32,7 @@ class UserController extends Controller
         // Login
         // auth()->login($user);
 
-        return redirect()->back()->with('success', 'User created and logged in');
+        return redirect()->back()->with('success', 'User created');
     }
 
     // Show Edit Form
@@ -53,16 +53,14 @@ class UserController extends Controller
             'name' => ['required', 'min:3'],
             'jobtitle' => 'required',
             'role' => 'required',
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => 'required|confirmed|min:6',
+            'email' => ['required', 'email'],
+            // 'password' => 'required|confirmed|min:6',
         ]);
-
-       
 
         $user->update($formFields);
 
-
-        return redirect("/")->with('success',  ' Report Updated Successfully!');
+        // return $request->name;
+        return redirect('/reports/manage')->with('success',  ' User Updated Successfully!');
         // return back()->with('success', 'Report updated successfully!');
     }
     
@@ -140,9 +138,9 @@ class UserController extends Controller
         //     abort(403, 'Unauthorized Action');
         // }
 
-        if($user->user_id == auth()->id()) {
-            abort(403, 'You are the Super Admin');
-        }
+        // if($user->user_id == auth()->id()) {
+        //     abort(403, 'You are the Super Admin');
+        // }
 
         
         $user->delete();

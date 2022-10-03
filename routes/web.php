@@ -83,11 +83,14 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 // Log In User
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
+// Show Edit Form
+// Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware('auth');
+// // Update Report
+// Route::PUT('/users/{user}', [UserController::class, 'update'])->middleware('auth');
+
+
 // Delete report
 Route::delete('/users/{user}', [UserController::class, 'destroy']);
-
-// Show Edit Form
-Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware('auth');
 
 // Update user
 // Route::PUT('/users/{user}', [UserController::class, 'update'])->middleware('auth');
@@ -96,8 +99,14 @@ Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware('a
 
 // THIS MIDDLEWARE ROUTE WILL GIVE ACCESS TO ADMIN AND EDITOR
 Route::middleware(['auth', 'user-role:admin'])->group(function () {
+    // Admin Dashboard
     Route::get("/reports/manage", [ReportController::class, 'manage'])->name("manage");
+    // Create New User
     Route::get('/register', [UserController::class, 'create']);
+    // Edit User
+    Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+    // Update User
+    Route::PUT('/users/{user}', [UserController::class, 'update']);
 });
 
 // ADMIN DASHBOARD ---- ONLY ADMIN ACCESS

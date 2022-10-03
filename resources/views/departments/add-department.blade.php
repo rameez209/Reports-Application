@@ -24,34 +24,30 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
                         <h1 class="fw-bold uppercase text-2xl">Add Department</h1> --}}
-
 <form method="POST" action="/departments" enctype="multipart/form-data">
     @csrf
-    <div class="flex justify-between">
-        <div class="form-outline mb-4 w-3/4">
-            {{-- <input type="text" class="form-control border border-gray-100" name="departments" value="{{ old('departments') }}" /> --}}
-            <input type="text" class="form-control border border-gray-100" name="departments" />
-            @error('departments')
-                <p class="text-red-500 text-xs ">{{ $message }}</p>
-            @enderror
-            <label class="form-label" for="departments">Department</label>
-        </div>
-        <div class="w-1/4 pl-1">
-            <a type="submit" class="">
-                <button type="submit" class="btn btn-success bg-success mb-4">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </a>
-        </div>
+    <div class="flex items-center border-b border-laravel py-2  m-3 ">
+        <input
+            class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            type="text" placeholder="Add Department" name="departments" aria-label="departments" autocomplete="off">
+        <button
+            class="drop-shadow-md rounded flex-shrink-0 bg-laravel hover:bg-navbarcolor border-laravel hover:border-navbarcolor text-sm border-4 text-white py-1 px-2"
+            type="submit">
+            <i class="fa fa-plus"></i> Add
+        </button>
+
+    </div>
+    <div class="p-3">
+        @error('departments')
+            <p class="text-red-500 text-xs ">{{ $message }}</p>
+        @enderror
     </div>
 
-
 </form>
-<div class="flex mb-4 gap-x-4 justify-center" >
 
-    <div class="w-full p-3">
+<div class="flex mb-4 gap-x-4 justify-center ">
+    <div class="w-full">
         <!--Graph Card-->
-
         <ul class="list-unstyled card-columns">
             @unless($departmentList->isEmpty())
                 @foreach ($departmentList as $dprt)
@@ -63,7 +59,7 @@
                                     <form class="delete-btn-form" action="/departments/{{ $dprt->id }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="text-red-500">
+                                        <button class="text-red-500 hover:text-red-600">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
@@ -76,8 +72,6 @@
         </ul>
     </div>
 </div>
-
-
 
 {{-- </div>
                 </div>

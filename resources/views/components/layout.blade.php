@@ -17,7 +17,7 @@
 
     <!-- Custom styles for this template-->
     {{-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> --}}
-    <link href="{{ asset('/public/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('/css/sb-admin-2.min.css') }}" rel="stylesheet"> --}}
 
 
     {{-- ALPINJS --}}
@@ -136,6 +136,7 @@
                 <span class="title-shadow">SJGH Report Catalog</span>
             </h1>
         </a>
+        
         <ul class="flex space-x-6 mr-6 text-lg text-white ">
             @auth
                 {{-- SHOW IF THE USER IS LOGGED IN --}}
@@ -151,8 +152,8 @@
                 </li>
                 <li>
                     <a href="/reports/manage" class="hover:text-laravel title-shadow">
-                        <i class="fa-solid fa-gear"></i>
-                        Manage Reports
+                        <i class="fa fa-tachometer"></i>
+                        Dashboard
                     </a>
                 </li>
                 {{-- LOGOUT --}}
@@ -228,6 +229,7 @@
 
     </main>
     <x-flash-success />
+    {{-- <x-flash-error /> --}}
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
@@ -254,6 +256,7 @@
 
         });
     </script>
+    
 
 
 

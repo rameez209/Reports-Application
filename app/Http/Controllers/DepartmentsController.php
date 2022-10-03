@@ -58,13 +58,7 @@ class DepartmentsController extends Controller
         return redirect('departments')->with('success', 'department Updated!');  
     }
 
-    // Delete report
-    // public function destroy($id)
-    // {
-    //     $departments = Departments::find($id);
-    //     $departments::destroy($id);
-    //     return redirect('/')->with('success', 'Department deleted!');  
-    // }
+    
 
     public function destroy(Departments $departments)
     {

@@ -40,6 +40,7 @@
                 <form method="POST" action="/reports/{{ $report->id }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    
                     <div>
                         <div>
                             {{-- REPORT NAME --}}
@@ -86,10 +87,6 @@
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                     @enderror
                                 </div> --}}
-
-
-
-
 
 
                             {{-- KEY TERMS --}}
